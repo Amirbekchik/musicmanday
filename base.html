@@ -1,0 +1,61 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
+    <link rel="stylesheet" href="{% static 'bulma/css/bulma.min.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-head">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                       data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                {% if user.is_authenticated %}
+
+                    <div id="navbarBasicExample" class="navbar-menu">
+                        
+                        <div class="navbar-end">
+
+                            <a class="navbar-item button my-4 mx-1">
+                                Welcome: {{ user }}
+                            </a>
+                            <span class="navbar-item">
+                               <a href="{% url 'user:signout' %}" class="button is-danger">Sign out</a>
+                           </span>
+                        </div>
+                    </div>
+
+                    {% else %}
+                    <div id="navbarBasicExample" class="navbar-menu">
+                        <div class="navbar-end">
+                            <span class="navbar-item">
+                               <a href="{% url 'user:signup' %}" class="button is-danger">Sign up</a>
+                           </span>
+                           <span class="navbar-item">
+                            <a href="{% url 'user:signin' %}" class="button is-danger">Sign in</a>
+                        </span>
+                        </div>
+                    </div>
+                {% endif %}
+            </nav>
+        </div>
+        <div class="hero-body">
+    {% block content %}
+    {% endblock content %}
+        </div>
+</section>
+<script type="module" 
+src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
